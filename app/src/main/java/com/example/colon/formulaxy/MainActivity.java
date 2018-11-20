@@ -1,7 +1,10 @@
 package com.example.colon.formulaxy;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
-
+    //Recuerden declarar variable globales fuera de las funciones
     InfoJava ij = new InfoJava();
     TextView tvParrafo = ij.tvParrafo;
 
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     public void pasar (View view){
@@ -71,5 +75,14 @@ public class MainActivity extends AppCompatActivity {
             b.write(bytes, 0, len);
         }
         return new String(b.toByteArray(), "UTF8");
+    }
+
+    public void UpdateDB(View view) {
+        String url = "https://the-eye.eu/public/Books/Asimov/Isaac%20Asimov%20Foundation%20Collection/Foundation/Foundation%20-%20Isaac%20Asimov.epub";
+        DownloadManager DManager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri addr = Uri.parse(url);
+        DownloadManager.Request request=new DownloadManager.Request(addr);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        Long RefId = DManager.enqueue(request);
     }
 }
