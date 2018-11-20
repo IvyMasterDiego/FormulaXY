@@ -5,7 +5,6 @@ import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
@@ -24,10 +23,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pasar (View view){
-        Intent pasarLayout = new Intent(getApplicationContext(), InfoJava.class);
+        Intent pasarLayout = new Intent(getApplicationContext(), BotonesJava.class);
         startActivity(pasarLayout);
     }
 
+    //Botones de las diferentes materias
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnFisica:
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Metodo para leer el texto
     public void leer(String archive) {
         AssetManager assetManager = getAssets();
         InputStream inputStream = null;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Convierte bytes en texto
     public String btoString(InputStream inputStream) throws IOException {
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         byte[] bytes = new byte[4096];
