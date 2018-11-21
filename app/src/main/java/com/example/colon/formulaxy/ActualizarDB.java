@@ -4,4 +4,7 @@ public class ActualizarDB {
 
     String ip;
 
+    protected void onCreate(){
+
+    }
 }
