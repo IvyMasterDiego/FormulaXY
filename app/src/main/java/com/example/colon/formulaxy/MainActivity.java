@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
-    //Recuerden declarar variable globales fuera de las funciones
+
     InfoJava ij = new InfoJava();
     TextView tvParrafo = ij.tvParrafo;
 
@@ -23,11 +23,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
-    public void pasar (View view){
-        Intent pasarLayout = new Intent(getApplicationContext(), BotonesJava.class);
+    public void passMate(View view) {
+        Intent pasarLayout = new Intent(getApplicationContext(), MateJava.class);
+        startActivity(pasarLayout);
+    }
+
+    public void passFisica(View view) {
+        Intent pasarLayout = new Intent(getApplicationContext(), FisicaJava.class);
+        startActivity(pasarLayout);
+    }
+
+    public void passQuimica(View view) {
+        Intent pasarLayout = new Intent(getApplicationContext(), QuimicaJava.class);
+        startActivity(pasarLayout);
+    }
+
+    public void pasarInfo(View view) {
+        Intent pasarLayout = new Intent(getApplicationContext(), InfoJava.class);
         startActivity(pasarLayout);
     }
 
@@ -35,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnFisica:
-                pasar(view);
-                leer("archivos/espanol/oracion.txt");
+                passFisica(view);
                 break;
             case R.id.btnMate:
-                pasar(view);
-                leer("archivos/ingles/oracion.txt");
+                passMate(view);
+                break;
+            case R.id.btnQuimica:
+                passQuimica(view);
                 break;
         }
     }
@@ -77,11 +92,14 @@ public class MainActivity extends AppCompatActivity {
         return new String(b.toByteArray(), "UTF8");
     }
 
+    //Descarga de archivo
+    //Mover para los layout de los botones y saber como hacer para que se descargue cada archivo individualmente por cada boton
+    //Metodo con url como variable y un switch para los diferentes archivos
     public void UpdateDB(View view) {
         String url = "https://the-eye.eu/public/Books/Asimov/Isaac%20Asimov%20Foundation%20Collection/Foundation/Foundation%20-%20Isaac%20Asimov.epub";
-        DownloadManager DManager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager DManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         Uri addr = Uri.parse(url);
-        DownloadManager.Request request=new DownloadManager.Request(addr);
+        DownloadManager.Request request = new DownloadManager.Request(addr);
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         Long RefId = DManager.enqueue(request);
     }
