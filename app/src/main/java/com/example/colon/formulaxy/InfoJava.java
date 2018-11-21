@@ -13,8 +13,5 @@ public class InfoJava extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info);
         tvParrafo = findViewById(R.id.tvParagraph);
-
-        //recibirDatos();
     }
-
 }
