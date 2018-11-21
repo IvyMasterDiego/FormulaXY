@@ -22,6 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".InfoJava"/>
+        <activity android:name=".FisicaJava"/>
+        <activity android:name=".MateJava"/>
+        <activity android:name=".QuimicaJava"/>
     </application>
 
 </manifest>
