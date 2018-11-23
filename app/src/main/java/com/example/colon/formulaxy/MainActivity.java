@@ -6,6 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,12 +34,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Animacion del menu
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer);
+        mDrawerLayout = findViewById(R.id.drawer);
         mToogle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToogle);
+        NavigationView nvDrawer = findViewById(R.id.nv);
+        mToogle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setupDrawerContent(nvDrawer);
     }
 
+    //Animacion del Click
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mToogle.onOptionsItemSelected(item)) {
             return true;
@@ -43,39 +51,52 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void passMate(View view) {
-        Intent pasarLayout = new Intent(getApplicationContext(), MateJava.class);
-        startActivity(pasarLayout);
-    }
-
-    public void passFisica(View view) {
-        Intent pasarLayout = new Intent(getApplicationContext(), FisicaJava.class);
-        startActivity(pasarLayout);
-    }
-
-    public void passQuimica(View view) {
-        Intent pasarLayout = new Intent(getApplicationContext(), QuimicaJava.class);
-        startActivity(pasarLayout);
-    }
-
-    public void pasarInfo(View view) {
-        Intent pasarLayout = new Intent(getApplicationContext(), InfoJava.class);
-        startActivity(pasarLayout);
-    }
-
-    //Botones de las diferentes materias
-    public void onClick(View view) {
-        switch (view.getId()) {
+    //Funcion de los botones
+    public void selectItemDrawer(MenuItem menuItem){
+        Fragment myFragment = null;
+        Class fragmentClass;
+        switch (menuItem.getItemId()){
             case R.id.item1:
-                passFisica(view);
+                fragmentClass = MateJava2.class;
                 break;
             case R.id.item2:
-                passMate(view);
+                fragmentClass = FisicaJava2.class;
                 break;
             case R.id.item3:
-                passQuimica(view);
+                fragmentClass = QuimicaJava2.class;
                 break;
+            case R.id.item4:
+                fragmentClass = MateJava2.class;
+                break;
+            case R.id.item5:
+                fragmentClass = FisicaJava2.class;
+                break;
+            case R.id.item6:
+                fragmentClass = QuimicaJava2.class;
+                break;
+            default:
+                fragmentClass = MainActivity.class;
         }
+        try{
+            myFragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager= getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent,myFragment).commit();
+        menuItem.setChecked(true);
+        setTitle(menuItem.getTitle());
+        mDrawerLayout.closeDrawers();
+    }
+
+    private void setupDrawerContent (NavigationView navigationView){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                selectItemDrawer(menuItem);
+                return false;
+            }
+        });
     }
 
     //Metodo para leer el texto
