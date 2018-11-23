@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.colon.formulaxy">
 
-    <uses-permission android:name="android.permission.ACCESS_ALL_DOWNLOADS"></uses-permission>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_ALL_DOWNLOADS" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
 
@@ -14,17 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".SplashJava" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InfoJava"/>
-        <activity android:name=".FisicaJava2"/>
-        <activity android:name=".MateJava2"/>
-        <activity android:name=".QuimicaJava2"/>
+        <activity android:name=".InfoJava" />
+        <activity android:name=".FisicaJava2" />
+        <activity android:name=".SettingsJava" />
+        <activity android:name=".HomeJava" />
+        <activity android:name=".MateJava2" />
+        <activity android:name=".QuimicaJava2" />
     </application>
 
 </manifest>
