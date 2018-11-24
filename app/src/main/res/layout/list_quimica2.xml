@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".QuimicaJava2">
 
-    <TextView
-        android:textSize="60dp"
+    <ListView
+        android:id="@+id/mainMenuQuim"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Quimica" />
+        android:layout_height="wrap_content" />
+
 
 </FrameLayout>
