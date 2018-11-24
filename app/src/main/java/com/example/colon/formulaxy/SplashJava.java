@@ -9,12 +9,10 @@ import android.widget.ImageView;
 
 public class SplashJava extends Activity {
 
-    ImageView splashGif;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_splash);
+        setContentView(R.layout.splash_layout);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
