@@ -2,33 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-    android:id="@+id/item1"
-    android:title="Matematica"
-    android:icon="@mipmap/icon_math"/>
+        android:id="@+id/item1"
+        android:icon="@mipmap/home"
+        android:title="Inicio" />
 
     <item
         android:id="@+id/item2"
-        android:title="Fisica"
-        android:icon="@mipmap/icon_fis"/>
+        android:icon="@mipmap/icon_math"
+        android:title="Matematica" />
 
     <item
         android:id="@+id/item3"
-        android:title="Quimica"
-        android:icon="@mipmap/icon_quim"/>
+        android:icon="@mipmap/icon_fis"
+        android:title="Fisica" />
 
     <item
         android:id="@+id/item4"
-        android:title="Otro1"
-        android:icon="@mipmap/icon_math"/>
+        android:icon="@mipmap/icon_quim"
+        android:title="Quimica" />
 
     <item
         android:id="@+id/item5"
-        android:title="Otro2"
-        android:icon="@mipmap/icon_fis"/>
-
-    <item
-        android:id="@+id/item6"
-        android:title="Otro3"
-        android:icon="@mipmap/icon_quim"/>
+        android:icon="@mipmap/setting"
+        android:title="Configuracion" />
 
 </menu>

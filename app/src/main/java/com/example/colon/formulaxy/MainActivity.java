@@ -57,25 +57,22 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
         switch (menuItem.getItemId()){
             case R.id.item1:
-                fragmentClass = MateJava2.class;
+                fragmentClass = HomeJava.class;
                 break;
             case R.id.item2:
-                fragmentClass = FisicaJava2.class;
-                break;
-            case R.id.item3:
-                fragmentClass = QuimicaJava2.class;
-                break;
-            case R.id.item4:
                 fragmentClass = MateJava2.class;
                 break;
-            case R.id.item5:
+            case R.id.item3:
                 fragmentClass = FisicaJava2.class;
                 break;
-            case R.id.item6:
+            case R.id.item4:
                 fragmentClass = QuimicaJava2.class;
                 break;
+            case R.id.item5:
+                fragmentClass = SettingsJava.class;
+                break;
             default:
-                fragmentClass = MainActivity.class;
+                fragmentClass = HomeJava.class;
         }
         try{
             myFragment = (Fragment) fragmentClass.newInstance();
