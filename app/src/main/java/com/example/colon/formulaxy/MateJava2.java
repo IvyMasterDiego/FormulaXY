@@ -40,5 +40,4 @@ public class MateJava2 extends Fragment {
         listMat.setAdapter(listViewAdapterMat);
         return view;
     }
-
 }
