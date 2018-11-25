@@ -21,8 +21,17 @@ public class MateJava2 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FetcherAPI fetcher = new FetcherAPI("http://13.58.197.240:5000/");
-        ArrayList<String> data = fetcher.Authenticate("admin", "1234");
+        Authenticate auth = new Authenticate("admin", "1234");
+        auth.execute();
+        while(auth.getToken() == null){
+            continue;
+        }
+        FetchJSON fetcher = new FetchJSON(auth.getToken(), "groups");
+        fetcher.execute();
+        while(fetcher.getJson() == null){
+            continue;
+        }
+        Log.d("token",fetcher.getJson().toString());
         View view = inflater.inflate(R.layout.list_mate2, container, false);
         String[] menuItems = {"Matematica 1",
                 "Matematica 2",
