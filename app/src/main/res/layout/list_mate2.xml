@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".MateJava2">
 
-    <TextView
-        android:textSize="60dp"
+    <ListView
+        android:id="@+id/mainMenuMat"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Matematica" />
+        android:layout_height="wrap_content" />
 
 </FrameLayout>
