@@ -1,6 +1,8 @@
 package com.example.colon.formulaxy;
 
 import android.os.AsyncTask;
+import android.util.Base64;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,8 +22,8 @@ import java.util.ArrayList;
 public class FetcherAPI{
     String ip;
 
-    protected void onCreate(String address){
-        ip = address;
+    public FetcherAPI(String s) {
+        ip =s;
     }
 
     public ArrayList<String> Authenticate(final String user, final String password){
@@ -31,36 +33,44 @@ public class FetcherAPI{
             public void run() {
                 URL url = null; //Enter URL here
                 try {
-                    url = new URL(ip + "/login/");
+                    url = new URL(ip + "login");
                     HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                     httpURLConnection.setDoOutput(true);
-                    httpURLConnection.setRequestMethod("POST"); // here you are telling that it is a POST request, which can be changed into "PUT", "GET", "DELETE" etc.
-                    //httpURLConnection.setRequestProperty("Content-Type", "application/json"); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
-                    httpURLConnection.connect();
+                    httpURLConnection.setRequestMethod("GET"); // here you are telling that it is a POST request, which can be changed into "PUT", "GET", "DELETE" etc.
+                    String usrpsswd = user + ":" + password;
+                    httpURLConnection.setRequestProperty("Authorization", "Basic " + new String(Base64.encode(usrpsswd.getBytes(), Base64.DEFAULT))); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
+                    Log.d("token", "Basic " +
+                                    Base64.encode(usrpsswd.getBytes(), Base64.NO_WRAP));
+                    //httpURLConnection.connect();
 
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("name", user);
+                    /*JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("username", user);
                     jsonObject.put("password", password);
 
                     DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
-                    wr.writeBytes(jsonObject.toString());
-                    wr.flush();
-                    wr.close();
+                    wr.writeBytes(jsonObject.toString());*/
+
+                    int status = httpURLConnection.getResponseCode();
+                    Log.d("Return code", "Code: " + status);
+                    if(status == 401){
+                        data.add("Access denied");
+                    }
 
                     InputStream inputStream = httpURLConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                     String line ="";
                     while(line != null){
+                        //Log.d("received", line);
                         line = bufferedReader.readLine();
                         data.add(line);
                     }
+                    inputStream.close();
+                    //wr.close();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (ProtocolException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -78,6 +88,11 @@ public class FetcherAPI{
                     URL url = new URL(ip + node);
                     HttpURLConnection httpURLConnection= (HttpURLConnection) url.openConnection();
                     httpURLConnection.setRequestProperty("x-access-token", token);
+                    int status = httpURLConnection.getResponseCode();
+                    Log.d("Return code", "Code: " + status);
+                    if(status == 401){
+                        data.add("Access denied");
+                    }
                     InputStream inputStream = httpURLConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                     String line = "";
