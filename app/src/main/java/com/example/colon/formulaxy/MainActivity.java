@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = QuimicaJava2.class;
                 break;
             case R.id.item5:
-                fragmentClass = PostMateJava.class;
+                fragmentClass = SettingsJava.class;
                 break;
             default:
                 fragmentClass = HomeJava.class;
