@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,26 +17,15 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class FetchJSON extends AsyncTask<Void, Void, Void> {
+public class DeleteJSON extends AsyncTask<Void, Void, Void> {
     String route;
-    String response;
     String end;
     String token ="";
-    JSONObject result = new JSONObject();
-    public JSONObject getJson(){
-        if(result == null){
-            try {
-                return (new JSONObject("{err:"+end+"}"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return  null;
-            }
-        }
-        else{
-            return result;
-        }
+    String response = "";
+    public String getResp(){
+        return end;
     }
-    public FetchJSON(String tkn, String rout){
+    public DeleteJSON(String tkn, String rout){
         route = rout;
         token = tkn;
     }
@@ -46,11 +36,12 @@ public class FetchJSON extends AsyncTask<Void, Void, Void> {
         try {
             url = new URL(ip + route);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setRequestMethod("DELETE");
             httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
             httpURLConnection.setRequestProperty("Accept","application/json");
-            //httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
             httpURLConnection.setRequestProperty("x-access-token", token);
+
 
             int status = httpURLConnection.getResponseCode();
             Log.d("Return code", "Code: " + status);
@@ -62,16 +53,14 @@ public class FetchJSON extends AsyncTask<Void, Void, Void> {
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
-            response = "";
             while (line != null) {
                 Log.d("received", line);
                 response += line;
                 line = bufferedReader.readLine();
             }
             Log.d("response", "response");
-            result = new JSONObject(response + "}");
+            end = (String) new JSONObject(response + "}").get("msg");
             inputStream.close();
-            //wr.close();
         } catch (MalformedURLException e) {
             Log.d("url","exep");
             end = "Connection error";
@@ -93,7 +82,6 @@ public class FetchJSON extends AsyncTask<Void, Void, Void> {
             }
             e.printStackTrace();
         }
-        end = "Connection error";
         return null;
     }
 

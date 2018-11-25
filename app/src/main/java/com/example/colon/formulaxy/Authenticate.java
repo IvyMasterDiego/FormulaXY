@@ -18,6 +18,7 @@ import java.net.URL;
 
 public class Authenticate extends AsyncTask<Void, Void, Void> {
     String user;
+    String response;
     String password;
     String end;
     JSONObject token = new JSONObject();
@@ -37,6 +38,8 @@ public class Authenticate extends AsyncTask<Void, Void, Void> {
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setRequestMethod("GET"); // here you are telling that it is a POST request, which can be changed into "PUT", "GET", "DELETE" etc.
+            httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+            httpURLConnection.setRequestProperty("Accept","application/json");
             String usrpsswd = user + ":" + password;
             httpURLConnection.setRequestProperty("Authorization", "Basic " + new String(Base64.encode(usrpsswd.getBytes(), Base64.DEFAULT))); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
                     /*Log.d("token", "Basic " +
@@ -60,7 +63,7 @@ public class Authenticate extends AsyncTask<Void, Void, Void> {
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
-            String response = "";
+            response = "";
             while (line != null) {
                 //Log.d("received", line);
                 response += line;
@@ -81,10 +84,14 @@ public class Authenticate extends AsyncTask<Void, Void, Void> {
             end = "Connection error";
             e.printStackTrace();
         } catch (JSONException e) {
-            end = "Connection error";
+            Log.d("json","exep");
+            try{
+                end = (String) new JSONObject(response + "}").get("err");
+            }catch (JSONException es){
+                end = "Connection error";
+            }
             e.printStackTrace();
         }
-        end = "Connection error";
         return null;
     }
 

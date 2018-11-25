@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class MateJava2 extends Fragment {
@@ -26,12 +29,25 @@ public class MateJava2 extends Fragment {
         while(auth.getToken() == null){
             continue;
         }
-        FetchJSON fetcher = new FetchJSON(auth.getToken(), "groups");
+        /*FetchJSON fetcher = new FetchJSON(auth.getToken(), "groups");
         fetcher.execute();
         while(fetcher.getJson() == null){
             continue;
         }
-        Log.d("token",fetcher.getJson().toString());
+        Log.d("token",fetcher.getJson().toString());*/
+        JSONObject paquete = new JSONObject();
+        try {
+            paquete.put("code", "Diego Gay!");
+            paquete.put("name", "test");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        DeleteJSON sender = new DeleteJSON(auth.getToken(), "groups/Diego Gay!");
+        sender.execute();
+        while(sender.getResp() == null){
+            continue;
+        }
+        Log.d("SENDER",sender.getResp());
         View view = inflater.inflate(R.layout.list_mate2, container, false);
         String[] menuItems = {"Matematica 1",
                 "Matematica 2",
