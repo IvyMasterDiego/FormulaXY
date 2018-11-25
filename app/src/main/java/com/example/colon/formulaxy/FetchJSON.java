@@ -46,7 +46,7 @@ public class FetchJSON extends AsyncTask<Void, Void, Void> {
             url = new URL(ip + route);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.setDoOutput(true);
+            //httpURLConnection.setDoOutput(true);
             httpURLConnection.setRequestProperty("x-access-token", token);
 
             int status = httpURLConnection.getResponseCode();
