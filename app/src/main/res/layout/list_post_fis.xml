@@ -10,4 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <ImageButton
+        android:id="@+id/btnAgregarPostFis"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="25dp"
+        android:background="@drawable/oval"
+        android:src="@mipmap/icon_anadir" />
+    <!--android:scaleType="fitXY"-->
+
 </FrameLayout>
