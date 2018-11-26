@@ -51,5 +51,51 @@ public class PostCrearJava extends AppCompatActivity {
                 }
             }
         });
+        cpq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String t = Titulo.getText().toString();
+                String c = Content.getText().toString();
+                if(MainActivity.token == ""){
+                    Toast post_error = Toast.makeText(getApplicationContext(), "No se ah iniciado sesion", Toast.LENGTH_SHORT);
+                    post_error.show();
+                }
+                else if(MainActivity.token == ""){
+                    Toast post_error = Toast.makeText(getApplicationContext(), "No se ah especificado el grupo", Toast.LENGTH_SHORT);
+                    post_error.show();
+                }
+                else{
+                    FxyApi api = new FxyApi();
+                    String msg = api.createPost(t, c, MainActivity.Group, "Quimica");
+                    if(msg != "Ok"){
+                        Toast post_error = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+                        post_error.show();
+                    }
+                }
+            }
+        });
+        cpf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String t = Titulo.getText().toString();
+                String c = Content.getText().toString();
+                if(MainActivity.token == ""){
+                    Toast post_error = Toast.makeText(getApplicationContext(), "No se ah iniciado sesion", Toast.LENGTH_SHORT);
+                    post_error.show();
+                }
+                else if(MainActivity.token == ""){
+                    Toast post_error = Toast.makeText(getApplicationContext(), "No se ah especificado el grupo", Toast.LENGTH_SHORT);
+                    post_error.show();
+                }
+                else{
+                    FxyApi api = new FxyApi();
+                    String msg = api.createPost(t, c, MainActivity.Group, "Fisica");
+                    if(msg != "Ok"){
+                        Toast post_error = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+                        post_error.show();
+                    }
+                }
+            }
+        });
     }
 }
