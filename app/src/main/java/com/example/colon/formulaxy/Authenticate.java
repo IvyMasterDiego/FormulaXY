@@ -54,7 +54,7 @@ public class Authenticate extends AsyncTask<Void, Void, Void> {
                     wr.writeBytes(jsonObject.toString());*/
 
             int status = httpURLConnection.getResponseCode();
-            Log.d("Return code", "Code: " + status);
+            //Log.d("Return code", "Code: " + status);
             if (status == 401) {
                 end = "Permission denied";
                 //token[0] = new JSONObject("err" + ":" + "Access denied");
@@ -85,11 +85,7 @@ public class Authenticate extends AsyncTask<Void, Void, Void> {
             e.printStackTrace();
         } catch (JSONException e) {
             Log.d("json","exep");
-            try{
-                end = (String) new JSONObject(response + "}").get("err");
-            }catch (JSONException es){
-                end = "Connection error";
-            }
+            end ="Connection error";
             e.printStackTrace();
         }
         return null;

@@ -54,11 +54,11 @@ public class DeleteJSON extends AsyncTask<Void, Void, Void> {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
             while (line != null) {
-                Log.d("received", line);
+                //Log.d("received", line);
                 response += line;
                 line = bufferedReader.readLine();
             }
-            Log.d("response", "response");
+            //Log.d("response", "response");
             end = (String) new JSONObject(response + "}").get("msg");
             inputStream.close();
         } catch (MalformedURLException e) {

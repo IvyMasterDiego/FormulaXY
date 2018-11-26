@@ -18,22 +18,12 @@ import java.net.URL;
 
 public class FetchJSON extends AsyncTask<Void, Void, Void> {
     String route;
-    String response;
+    String response = null;
     String end;
     String token ="";
     JSONObject result = new JSONObject();
-    public JSONObject getJson(){
-        if(result == null){
-            try {
-                return (new JSONObject("{err:"+end+"}"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return  null;
-            }
-        }
-        else{
-            return result;
-        }
+    public String getJson(){
+        return response;
     }
     public FetchJSON(String tkn, String rout){
         route = rout;
@@ -64,27 +54,27 @@ public class FetchJSON extends AsyncTask<Void, Void, Void> {
             String line = "";
             response = "";
             while (line != null) {
-                Log.d("received", line);
+                //Log.d("received", line);
                 response += line;
                 line = bufferedReader.readLine();
             }
-            Log.d("response", "response");
-            result = new JSONObject(response + "}");
+            //Log.d("response", response);
+            //result = new JSONObject(response);
             inputStream.close();
             //wr.close();
         } catch (MalformedURLException e) {
             Log.d("url","exep");
-            end = "Connection error";
+            response = "Connection error";
             e.printStackTrace();
         } catch (ProtocolException e) {
             Log.d("url","prot");
-            end = "Connection error";
+            response = "Connection error";
             e.printStackTrace();
         } catch (IOException e) {
             Log.d("url","io");
-            end = "Connection error";
+            response = "Connection error";
             e.printStackTrace();
-        } catch (JSONException e) {
+        } /*catch (JSONException e) {
             Log.d("json","exep");
             try{
                 end = (String) new JSONObject(response + "}").get("err");
@@ -92,14 +82,14 @@ public class FetchJSON extends AsyncTask<Void, Void, Void> {
                 end = "Connection error";
             }
             e.printStackTrace();
-        }
+        }*/
         end = "Connection error";
         return null;
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
-
         super.onPostExecute(aVoid);
+
     }
 }

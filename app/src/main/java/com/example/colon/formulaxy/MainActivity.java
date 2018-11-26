@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     InfoJava ij = new InfoJava();
     TextView tvParrafo = ij.tvParrafo;
 
+    public String token;
+    public String Group;
+
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToogle;
 
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = QuimicaJava2.class;
                 break;
             case R.id.item5:
-                fragmentClass = PostMateJava.class;
+                fragmentClass = SettingsJava.class;
                 break;
             default:
                 fragmentClass = HomeJava.class;

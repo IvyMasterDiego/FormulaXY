@@ -9,10 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class MateJava2 extends Fragment {
 
@@ -24,30 +26,37 @@ public class MateJava2 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Authenticate auth = new Authenticate("admin", "1234");
+        Authenticate auth = new Authenticate("jose", "jose");
         auth.execute();
         while(auth.getToken() == null){
             continue;
         }
-        /*FetchJSON fetcher = new FetchJSON(auth.getToken(), "groups");
-        fetcher.execute();
-        while(fetcher.getJson() == null){
-            continue;
-        }
-        Log.d("token",fetcher.getJson().toString());*/
-        JSONObject paquete = new JSONObject();
+        FetchJSON fetch = new FetchJSON(auth.getToken(), "posts/JOSE/Matematicas");
         try {
-            paquete.put("code", "Diego Gay!");
-            paquete.put("name", "test");
+            fetch.execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("results", fetch.getJson());
+        JSONObject raw = new JSONObject();
+        try {
+            raw = new JSONObject(fetch.response);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        DeleteJSON sender = new DeleteJSON(auth.getToken(), "groups/Diego Gay!");
-        sender.execute();
-        while(sender.getResp() == null){
-            continue;
+        JSONArray posts = new JSONArray();
+        try {
+            posts = new JSONArray(raw.getString("posts"));
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        Log.d("SENDER",sender.getResp());
+        try {
+            Log.d("Post 1:", posts.getJSONObject(0).toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         View view = inflater.inflate(R.layout.list_mate2, container, false);
         String[] menuItems = {"Matematica 1",
                 "Matematica 2",
