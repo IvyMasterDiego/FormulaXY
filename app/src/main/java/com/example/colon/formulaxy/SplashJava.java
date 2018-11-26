@@ -21,6 +21,6 @@ public class SplashJava extends Activity {
                 startActivity(intent);
                 finish();
             }
-        }, 4000);
+        }, 1000);
     }
 }

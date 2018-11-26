@@ -1,15 +1,21 @@
 package com.example.colon.formulaxy;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class MateJava2 extends Fragment {
 
@@ -21,18 +27,52 @@ public class MateJava2 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_mate2, container, false);
-        String[] menuItems = {"Matematica 1",
-                "Matematica 2",
-                "Matematica 3",
-                "Matematica 4",
-                "Matematica 5",
-                "Matematica 6",
-                "Matematica 7",
-                "Matematica 8",
-                "Matematica 9",
-                "Matematica 10"};
 
+        FxyApi api = new FxyApi();
+        JSONArray posts = api.getPostByTopic(MainActivity.Group, "Matematicas");
+        try {
+            Log.d("Results:", posts.getJSONObject(0).toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        View view = inflater.inflate(R.layout.list_mate2, container, false);
+        int menu_lenght = 1;
+        if(posts.length() > 0){
+            menu_lenght = posts.length();
+        }
+        else{
+            if(MainActivity.token == ""){
+                Toast post_error = Toast.makeText(getActivity(), "No se ha iniciado sesion", Toast.LENGTH_SHORT);
+                post_error.show();
+            }
+            else if (MainActivity.Group == ""){
+                Toast post_error = Toast.makeText(getActivity(), "No se ha encontrado el grupo: "+MainActivity.Group, Toast.LENGTH_SHORT);
+                post_error.show();
+            }
+            Toast post_error = Toast.makeText(getActivity(), "No se han encontrado los posts", Toast.LENGTH_SHORT);
+            post_error.show();
+        }
+        String[] menuItems = new String[menu_lenght];
+
+        for (int i =0; i < posts.length(); i++){
+            Post pst = new Post();
+            try {
+                pst = pst.JsonToPost(posts.getJSONObject(i));
+                menuItems[i] = "|"+pst.title+"|"+"    Creado por: "+ pst.author + "\n\n" + pst.content;
+                Log.d("title", pst.title);
+            } catch (JSONException e) {
+                Toast post_error = Toast.makeText(getActivity(), "Error cargando posts", Toast.LENGTH_SHORT);
+                post_error.show();
+                e.printStackTrace();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        for(int i =0; i < menuItems.length; i++){
+            if(menuItems[i] == null)menuItems[i] = " ";
+        }
         listMat = view.findViewById(R.id.mainMenuMat);
         listViewAdapterMat = new ArrayAdapter<String>(
                 getActivity(),
@@ -41,15 +81,6 @@ public class MateJava2 extends Fragment {
         );
         listMat.setAdapter(listViewAdapterMat);
 
-        listMat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int item = position;
-                String itemval = (String) listMat.getItemAtPosition(position);
-                Toast.makeText(getContext(), "Position: " + item + " - Valor: " + itemval, Toast.LENGTH_LONG).show();
-                Intent i = new Intent(getContext(), HomeJava.class); //
-                startActivity(i);
-            }
-        });
         return view;
     }
 }
