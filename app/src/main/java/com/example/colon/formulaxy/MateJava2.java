@@ -42,6 +42,14 @@ public class MateJava2 extends Fragment {
             menu_lenght = posts.length();
         }
         else{
+            if(MainActivity.token == ""){
+                Toast post_error = Toast.makeText(getActivity(), "No se ah iniciado sesion", Toast.LENGTH_SHORT);
+                post_error.show();
+            }
+            else if (MainActivity.Group == ""){
+                Toast post_error = Toast.makeText(getActivity(), "No se ah encontrado grupo: "+MainActivity.Group, Toast.LENGTH_SHORT);
+                post_error.show();
+            }
             Toast post_error = Toast.makeText(getActivity(), "So se han encontrado posts", Toast.LENGTH_SHORT);
             post_error.show();
         }
