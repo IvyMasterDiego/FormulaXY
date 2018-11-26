@@ -1,12 +1,15 @@
 package com.example.colon.formulaxy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MateJava2 extends Fragment {
 
@@ -28,7 +31,7 @@ public class MateJava2 extends Fragment {
                 "Matematica 7",
                 "Matematica 8",
                 "Matematica 9",
-                "Matematica 10" };
+                "Matematica 10"};
 
         listMat = view.findViewById(R.id.mainMenuMat);
         listViewAdapterMat = new ArrayAdapter<String>(
@@ -37,6 +40,16 @@ public class MateJava2 extends Fragment {
                 menuItems
         );
         listMat.setAdapter(listViewAdapterMat);
+
+        listMat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int item = position;
+                String itemval = (String) listMat.getItemAtPosition(position);
+                Toast.makeText(getContext(), "Position: " + item + " - Valor: " + itemval, Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getContext(), HomeJava.class); //
+                startActivity(i);
+            }
+        });
         return view;
     }
 }

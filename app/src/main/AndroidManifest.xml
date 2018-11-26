@@ -23,15 +23,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".InfoJava" />
+        <activity android:name=".InfoPostJava" />
         <activity android:name=".PostCrearJava" />
         <activity android:name=".PostFisJava" />
         <activity android:name=".PostQuimJava" />
         <activity android:name=".PostMateJava" />
+        <activity android:name=".MateJava2" />
+        <activity android:name=".QuimicaJava2" />
         <activity android:name=".FisicaJava2" />
         <activity android:name=".SettingsJava" />
         <activity android:name=".HomeJava" />
-        <activity android:name=".MateJava2" />
-        <activity android:name=".QuimicaJava2" />
     </application>
 
 </manifest>
