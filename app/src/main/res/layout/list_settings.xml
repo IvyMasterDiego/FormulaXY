@@ -43,6 +43,7 @@
                 android:hint="Codigo del grupo" />
 
             <Button
+                android:id="@+id/grp_get"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtnomGroup"
@@ -88,6 +89,7 @@
                     android:orientation="vertical">
 
                     <EditText
+                        android:id="@+id/GRP_NAME"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -95,6 +97,7 @@
                         android:hint="Nombre del grupo" />
 
                     <EditText
+                        android:id="@+id/GRP_CODE"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -104,6 +107,7 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/create_grp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -145,12 +149,14 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/Username"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20sp"
                     android:hint="Usuario" />
 
                 <EditText
+                    android:id="@+id/Passd"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:hint="Password" />
@@ -163,6 +169,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/Crear_Usuario"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20sp"
@@ -170,6 +177,7 @@
                     android:text="Crear Usuario" />
 
                 <Button
+                    android:id="@+id/Login"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20sp"

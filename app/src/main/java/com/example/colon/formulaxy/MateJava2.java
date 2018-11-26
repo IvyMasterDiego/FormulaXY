@@ -29,8 +29,7 @@ public class MateJava2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         FxyApi api = new FxyApi();
-        api.login("jose", "jose");
-        JSONArray posts = api.getPostByTopic("JOSE", "Matematicas");
+        JSONArray posts = api.getPostByTopic(MainActivity.Group, "Matematicas");
         try {
             Log.d("Results:", posts.getJSONObject(0).toString());
         } catch (JSONException e) {
@@ -52,7 +51,7 @@ public class MateJava2 extends Fragment {
             Post pst = new Post();
             try {
                 pst = pst.JsonToPost(posts.getJSONObject(i));
-                menuItems[i] = "[" + pst.title+ "]" +":\n"+ pst.content;
+                menuItems[i] = "[" +pst.title+ "]" + "\n\n" + pst.content;
                 Log.d("title", pst.title);
             } catch (JSONException e) {
                 Toast post_error = Toast.makeText(getActivity(), "Error cargando posts", Toast.LENGTH_SHORT);
@@ -73,6 +72,7 @@ public class MateJava2 extends Fragment {
                 menuItems
         );
         listMat.setAdapter(listViewAdapterMat);
+
         return view;
     }
 }
