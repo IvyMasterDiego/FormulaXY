@@ -25,8 +25,7 @@ public class QuimicaJava2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FxyApi api = new FxyApi();
-        api.login("jose", "jose");
-        JSONArray posts = api.getPostByTopic("JOSE", "Quimica");
+        JSONArray posts = api.getPostByTopic(MainActivity.Group, "Quimica");
         try {
             Log.d("Results:", posts.getJSONObject(0).toString());
         } catch (JSONException e) {
@@ -48,7 +47,7 @@ public class QuimicaJava2 extends Fragment {
             Post pst = new Post();
             try {
                 pst = pst.JsonToPost(posts.getJSONObject(i));
-                menuItems[i] = "[" + pst.title+ "]" +":\n"+ pst.content;
+                menuItems[i] = "[" +pst.title+ "]" + "\n\n" + pst.content;
                 Log.d("title", pst.title);
             } catch (JSONException e) {
                 Toast post_error = Toast.makeText(getActivity(), "Error cargando posts", Toast.LENGTH_SHORT);

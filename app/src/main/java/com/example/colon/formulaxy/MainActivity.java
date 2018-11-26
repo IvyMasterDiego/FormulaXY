@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     InfoJava ij = new InfoJava();
     TextView tvParrafo = ij.tvParrafo;
 
-    public String token;
-    public String Group;
+    static String token = "";
+    static String Group = "";
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToogle;

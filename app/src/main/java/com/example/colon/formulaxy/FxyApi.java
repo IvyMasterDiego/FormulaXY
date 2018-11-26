@@ -9,7 +9,8 @@ import org.json.JSONObject;
 import java.util.concurrent.ExecutionException;
 
 public class FxyApi {
-    String token = new String();
+
+    String token = "";
     public String login(String user, String password){
         String msg = new String();
         Authenticate auth = new Authenticate(user, password);
@@ -18,16 +19,18 @@ public class FxyApi {
             auth.execute().get();
         } catch (ExecutionException e) {
             e.printStackTrace();
+            return "Bad";
         } catch (InterruptedException e) {
             e.printStackTrace();
+            return "Bad";
         }
-        msg = token = auth.getToken();
-        return msg;
+        token = MainActivity.token = auth.getToken();
+        return "Ok";
     }
 
     public JSONArray getPostByTopic(String Grupo, String topic){
         JSONArray RespJsons = new JSONArray();
-        FetchJSON fetch = new FetchJSON(token, "posts/"+Grupo+"/"+topic);
+        FetchJSON fetch = new FetchJSON(MainActivity.token, "posts/"+Grupo+"/"+topic);
 
         try {
             fetch.execute().get();
@@ -51,4 +54,47 @@ public class FxyApi {
         }
         return RespJsons;
     }
+
+    public String createGroup(String name, String code){
+        JSONObject paquete = new JSONObject();
+        try {
+            paquete.put("name", name);
+            paquete.put("code", code);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        SendJSON send = new SendJSON(MainActivity.token, "/groups", paquete);
+        try {
+            send.execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return "Error";
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return "Error";
+        }
+        return "Ok";
+    }
+
+    public String createUser(String user, String password){
+        JSONObject paquete = new JSONObject();
+        try {
+            paquete.put("name", user);
+            paquete.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        SendJSON send = new SendJSON(MainActivity.token, "/user", paquete);
+        try {
+            send.execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return "Error";
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return "Error";
+        }
+        return "Ok";
+    }
+
 }
