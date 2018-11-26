@@ -77,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 fragmentClass = HomeJava.class;
-        }
-        try{
+        } try{
             myFragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e){
             e.printStackTrace();

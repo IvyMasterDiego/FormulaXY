@@ -11,4 +11,13 @@
         android:layout_height="wrap_content"
         android:textColor="#000" />
 
+    <ImageButton
+        android:id="@+id/btnAgregarPostQuim"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="25dp"
+        android:background="@drawable/oval"
+        android:src="@mipmap/icon_anadir" />
+
 </FrameLayout>
