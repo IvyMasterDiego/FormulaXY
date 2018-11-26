@@ -2,11 +2,16 @@ package com.example.colon.formulaxy;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class FisicaJava2 extends Fragment {
 
@@ -19,16 +24,39 @@ public class FisicaJava2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_fisica2, container, false);
-        String[] menuItems = {"Fisica 1",
-                "Fisica 2",
-                "Fisica 3",
-                "Fisica 4",
-                "Fisica 5",
-                "Fisica 6",
-                "Fisica 7",
-                "Fisica 8",
-                "Fisica 9",
-                "Fisica 10" };
+        FxyApi api = new FxyApi();
+        api.login("jose", "jose");
+        JSONArray posts = api.getPostByTopic("JOSE", "Fisica");
+        try {
+            Log.d("Results:", posts.getJSONObject(0).toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        int menu_lenght = 1;
+        if(posts.length() > 0){
+            menu_lenght = posts.length();
+        }
+        String[] menuItems = new String[menu_lenght];
+
+        for (int i =0; i < posts.length(); i++){
+            Post pst = new Post();
+            try {
+                pst = pst.JsonToPost(posts.getJSONObject(i));
+                menuItems[i] = pst.title;
+                Log.d("title", pst.title);
+            } catch (JSONException e) {
+                Toast post_error = Toast.makeText(getActivity(), "Error cargando posts", Toast.LENGTH_SHORT);
+                post_error.show();
+                e.printStackTrace();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        for(int i =0; i < menuItems.length; i++){
+            if(menuItems[i] == null)menuItems[i] = "No posts";
+        }
 
         listFis = view.findViewById(R.id.mainMenuFis);
         listViewAdapterFis = new ArrayAdapter<String>(

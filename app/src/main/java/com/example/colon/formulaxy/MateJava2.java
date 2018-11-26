@@ -30,7 +30,7 @@ public class MateJava2 extends Fragment {
 
         FxyApi api = new FxyApi();
         api.login("jose", "jose");
-        JSONArray posts = api.getPostByTopic("JOSE", "Fisica");
+        JSONArray posts = api.getPostByTopic("JOSE", "Matematicas");
         try {
             Log.d("Results:", posts.getJSONObject(0).toString());
         } catch (JSONException e) {
