@@ -14,7 +14,6 @@ public class MateJava2 extends Fragment {
     ArrayAdapter<String> listViewAdapterMat;
 
     public MateJava2() {
-
     }
 
     @Override
@@ -40,5 +39,4 @@ public class MateJava2 extends Fragment {
         listMat.setAdapter(listViewAdapterMat);
         return view;
     }
-
 }

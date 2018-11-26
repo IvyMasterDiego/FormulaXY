@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,8 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 fragmentClass = HomeJava.class;
-        }
-        try{
+        } try{
             myFragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e){
             e.printStackTrace();
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupDrawerContent (NavigationView navigationView){
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
                 selectItemDrawer(menuItem);
                 return false;
             }
