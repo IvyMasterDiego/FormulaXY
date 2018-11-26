@@ -42,13 +42,17 @@ public class MateJava2 extends Fragment {
         if(posts.length() > 0){
             menu_lenght = posts.length();
         }
+        else{
+            Toast post_error = Toast.makeText(getActivity(), "So se han encontrado posts", Toast.LENGTH_SHORT);
+            post_error.show();
+        }
         String[] menuItems = new String[menu_lenght];
 
         for (int i =0; i < posts.length(); i++){
             Post pst = new Post();
             try {
                 pst = pst.JsonToPost(posts.getJSONObject(i));
-                menuItems[i] = pst.title;
+                menuItems[i] = "[" + pst.title+ "]" +":\n"+ pst.content;
                 Log.d("title", pst.title);
             } catch (JSONException e) {
                 Toast post_error = Toast.makeText(getActivity(), "Error cargando posts", Toast.LENGTH_SHORT);
@@ -60,7 +64,7 @@ public class MateJava2 extends Fragment {
         }
 
         for(int i =0; i < menuItems.length; i++){
-            if(menuItems[i] == null)menuItems[i] = "No posts";
+            if(menuItems[i] == null)menuItems[i] = " ";
         }
         listMat = view.findViewById(R.id.mainMenuMat);
         listViewAdapterMat = new ArrayAdapter<String>(

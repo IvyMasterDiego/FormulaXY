@@ -33,10 +33,14 @@ public class QuimicaJava2 extends Fragment {
             e.printStackTrace();
         }
 
-        View view = inflater.inflate(R.layout.list_mate2, container, false);
+        View view = inflater.inflate(R.layout.list_quimica2, container, false);
         int menu_lenght = 1;
         if(posts.length() > 0){
             menu_lenght = posts.length();
+        }
+        else{
+            Toast post_error = Toast.makeText(getActivity(), "So se han encontrado posts", Toast.LENGTH_SHORT);
+            post_error.show();
         }
         String[] menuItems = new String[menu_lenght];
 
@@ -44,7 +48,7 @@ public class QuimicaJava2 extends Fragment {
             Post pst = new Post();
             try {
                 pst = pst.JsonToPost(posts.getJSONObject(i));
-                menuItems[i] = pst.title;
+                menuItems[i] = "[" + pst.title+ "]" +":\n"+ pst.content;
                 Log.d("title", pst.title);
             } catch (JSONException e) {
                 Toast post_error = Toast.makeText(getActivity(), "Error cargando posts", Toast.LENGTH_SHORT);
@@ -56,7 +60,7 @@ public class QuimicaJava2 extends Fragment {
         }
 
         for(int i =0; i < menuItems.length; i++){
-            if(menuItems[i] == null)menuItems[i] = "No posts";
+            if(menuItems[i] == null)menuItems[i] = " ";
         }
 
         listQui = view.findViewById(R.id.mainMenuQuim);
